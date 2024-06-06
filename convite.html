@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Convite Especial</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            padding: 50px;
+            background: #f0f0f0;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            display: inline-block;
+            max-width: 500px;
+        }
+        h1 {
+            color: #333;
+        }
+        p {
+            color: #666;
+        }
+        .button {
+            font-size: 18px;
+            padding: 10px 20px;
+            margin: 10px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+        }
+        .button-sim {
+            background: #4CAF50;
+            color: white;
+        }
+        .button-nao {
+            background: #f44336;
+            color: white;
+            position: absolute;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Olha o convite!</h1>
+        <p>Olá! Gostaria de te convidar para irmos neste Domingo na festa Pelo AMOR de Todos os Santos, às 18 horas, na Rua Jardim do Tabaco, 1100 Lisboa.</p>
+        <p>Quero também me desculpar pelo último compromisso. Infelizmente, não consegui organizar melhor, acabou fincando bagunçado</p>
+        <p>Você aceita o convite?</p>
+        <button class="button button-sim" onclick="sendEmail('Sim')">Sim</button>
+        <button class="button button-nao" onmouseover="moveButton()">Não</button>
+    </div>
+
+    <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+    <script>
+        (function() {
+            emailjs.init("tOR70ujEQrmIPFib1");
+        })();
+
+        function moveButton() {
+            const button = document.querySelector('.button-nao');
+            const x = Math.floor(Math.random() * (window.innerWidth - button.offsetWidth));
+            const y = Math.floor(Math.random() * (window.innerHeight - button.offsetHeight));
+            button.style.left = x + 'px';
+            button.style.top = y + 'px';
+        }
+
+        function sendEmail(response) {
+            const templateParams = {
+                to_name: "Seu Nome",
+                message: `A pessoa respondeu: ${response}`
+            };
+
+            emailjs.send("service_8dtxm3d", "template_f18m28q", templateParams)
+                .then(function(response) {
+                    alert('Resposta enviada com sucesso!');
+                }, function(error) {
+                    alert('Falha ao enviar resposta: ' + JSON.stringify(error));
+                });
+        }
+    </script>
+</body>
+</html>
